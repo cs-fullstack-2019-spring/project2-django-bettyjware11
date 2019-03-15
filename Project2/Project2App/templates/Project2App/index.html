@@ -1,0 +1,32 @@
+{% extends 'Project2App/base.html' %}
+
+{% block content %}
+
+<h1>Welcome to the Django Wiki Page</h1>
+    You are logged in as {{ user.username }}
+
+
+
+    {% if entry_list %}
+
+    {% for eachEntry in entry_list %}
+    <h2>{{ eachEntry.postTitle }}</h2>
+    <p>{{ eachEntry.postText }}</p>
+    <p>{{ eachEntry.createdDateTime }}</p>
+    <p>{{ eachEntry.lastUpdatedDateTime }}</p>
+    <p>{{ eachEntry.optionalPostImage }}</p>
+
+
+    {% if perms.Project2App.delete_entry %}
+    <p><a href="#"> Delete? </a></p>
+
+    {% endif %}
+    {% endfor %}
+
+    {% else %}
+    <p>No Entries Available.</p>
+    {% endif %}
+
+
+
+{% endblock content %}

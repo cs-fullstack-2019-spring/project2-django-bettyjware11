@@ -1,0 +1,42 @@
+{% extends 'Project2App/base.html' %}
+
+{% block content %}
+<h1>This is a list of your entries:</h1>
+
+{{ user.username }}
+
+{% if user.is_authenticated %}
+<p><a href="{% url 'addNewEntry' %}">Add New Wiki Post</a></p>
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+
+{# If they do have entries #}
+{% if allEntries %}
+<ul>
+    {% for eachEntry in allEntries %}
+    <li>{{ eachEntry.name }} <a href="{% url 'editEntries' eachEntry.id %}">Edit</a> or <a href="{% url 'deleteEntries' eachEntry.id %}">Delete</a></li>
+    {% endfor %}
+</ul>
+
+{# If they don't have any Wiki Posts. #}
+{% else %}
+<h2>Add some Wiki Posts</h2>
+{% endif %}
+
+{# This is for users not logged in #}
+{% else %}
+<p><a href="{% url 'createUser' %}">Create a user</a> or</p>
+<p><a href="{% url 'login' %}">Log in</a></p>
+{% endif %}
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+

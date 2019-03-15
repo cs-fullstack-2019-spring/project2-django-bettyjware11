@@ -1,0 +1,13 @@
+{% extends 'Project2App/base.html' %}
+
+{% block content %}
+
+<h1>Add a Related Entry to your WikiPost</h1>
+<form action="{% url 'addRelated' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Submit</button>
+</form>
+
+{% endblock content %}
+

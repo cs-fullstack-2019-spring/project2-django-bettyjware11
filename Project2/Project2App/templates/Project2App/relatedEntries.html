@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ wiki_form.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

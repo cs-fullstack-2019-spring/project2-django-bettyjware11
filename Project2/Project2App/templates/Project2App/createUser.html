@@ -1,0 +1,11 @@
+{% extends 'Project2App/base.html' %}
+
+{% block content %}
+<h1>Users</h1>
+<form method="POST">
+    {{ userform.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Submit"></form>
+<a href="{% url 'index' %} ">Home Page</a>
+
+{% endblock content %}
