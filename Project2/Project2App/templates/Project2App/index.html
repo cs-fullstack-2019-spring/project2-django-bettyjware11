@@ -2,31 +2,32 @@
 
 {% block content %}
 
-<h1>Welcome to the Django Wiki Page</h1>
-    You are logged in as {{ user.username }}
+<h1>Welcome to the Django Wiki Posts Page</h1>
+{{ user.username }}
 
+{% if user.is_authenticated %}
+<p><a href="{% url 'addNewEntry' %}">Add a WikiPost</a></p>
+<p><a href="{% url 'logout' %}">Log Out</a></p>
 
+{# If they do have entries #}
+{% if allEntries %}
+<div class="gridContainer">
+    <ul>
+        {% for eachEntry in allEntries %}
+        <li>{{ eachEntry.postTitle }} <a href="{% url 'editEntries' eachEntry.id %}">Edit</a> or <a
+                href="{% url 'deleteEntries' eachEntry.id %}">Delete</a></li>
 
-    {% if entry_list %}
+        {% endfor %}
+    </ul>
+</div>
+{# If they don't have any Wiki Posts. #}
+{% else %}
+<h2>Add some Wiki Posts</h2>
+{% endif %}
 
-    {% for eachEntry in entry_list %}
-    <h2>{{ eachEntry.postTitle }}</h2>
-    <p>{{ eachEntry.postText }}</p>
-    <p>{{ eachEntry.createdDateTime }}</p>
-    <p>{{ eachEntry.lastUpdatedDateTime }}</p>
-    <p>{{ eachEntry.optionalPostImage }}</p>
-
-
-    {% if perms.Project2App.delete_entry %}
-    <p><a href="#"> Delete? </a></p>
-
-    {% endif %}
-    {% endfor %}
-
-    {% else %}
-    <p>No Entries Available.</p>
-    {% endif %}
-
-
-
+{# This is for users not logged in #}
+{% else %}
+<p><a href="{% url 'createUser' %}">Create a user</a> or</p>
+<p><a href="{% url 'login' %}">Log in</a></p>
+{% endif %}
 {% endblock content %}

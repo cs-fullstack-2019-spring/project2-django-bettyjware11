@@ -1,22 +1,33 @@
-.container
+html
 {
     display: grid;
+    background-image: url("../images/air.jpeg");
+    /*background: pink;*/
+    margin: 1% 5%;
+}
+
+
+.first {
 
 }
 
+button{
+    color: black;
+}
 
 body {
     border: 1px solid blue;
     margin: 10%;
-    padding: 20px
+    padding: 20px;
+    background-color: pink;
 }
 
 header {
-
+    background-color: lightseagreen;
     grid-column: 1 / 13;
     grid-row: 1;
     text-align: center;
-    border: 1px solid red;
+    border: 1px solid blue;
 }
 
 article {
@@ -35,6 +46,7 @@ aside {
 }
 
 footer {
+    background-color: lightseagreen;
     grid-column: 1 / 13;
     grid-row: 3;
     text-align: center;

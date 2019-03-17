@@ -1,25 +1,12 @@
 from django import forms
-from .models import UserModel, RelatedModel, WikiPostsModel
+from .models import AuthorModel,RelatedModel, WikiPostsModel
 from datetime import date
 
-class WikiPostsForm(forms.ModelForm):
+class AuthorForm(forms.ModelForm):
     class Meta:
-        model = WikiPostsModel
-        exclude = ["foreignKeyToUser"]
+        model = AuthorModel
+        fields = ["username", "password1", "password2"]
 
-
-
-class RelatedForm(forms.ModelForm):
-    class Meta:
-        model = RelatedModel
-        exclude = ["foreignKeyToUser"]
-
-
-
-class NewUserForm(forms.ModelForm):
-    class Meta:
-        model = UserModel
-        fields = ["username", "password1", "password2", "email"]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -27,3 +14,61 @@ class NewUserForm(forms.ModelForm):
         password2 = cleaned_data.get("password2")
         if password1 != password2:
             raise forms.ValidationError("Passwords DO NOT MATCH!!!!!!!!!!!!!")
+
+class WikiPostsForm(forms.ModelForm):
+    class Meta:
+        model = WikiPostsModel
+        exclude = ["foreignKeyToAuthor"]
+
+
+    def clean_createdDateTime(self):
+        cleanCreatedDateTimeData = self.cleaned_data["createdDateTime"]
+
+        if cleanCreatedDateTimeData == None:
+            raise forms.ValidationError("No date was entered")
+
+        if cleanCreatedDateTimeData > date.today():
+            raise forms.ValidationError("Future date should not be entered")
+
+        return cleanCreatedDateTimeData
+
+    def clean_lastUpdatedDateTime(self):
+        cleanLastUpdatedDateTimeData = self.cleaned_data["lastUpdatedDateTime"]
+
+        if cleanLastUpdatedDateTimeData == None:
+            raise forms.ValidationError("No date was entered")
+
+        if cleanLastUpdatedDateTimeData > date.today():
+            raise forms.ValidationError("Future date should not be entered")
+
+
+class RelatedForm(forms.ModelForm):
+    class Meta:
+        model = RelatedModel
+        exclude = ["foreignKeyToWikiPosts"]
+
+
+    def clean_createdDateTime(self):
+        cleanCreatedDateTimeData = self.cleaned_data["createdDateTime"]
+
+        if cleanCreatedDateTimeData == None:
+            raise forms.ValidationError("No date was entered")
+
+        if cleanCreatedDateTimeData > date.today():
+            raise forms.ValidationError("Future date should not be entered")
+
+        return cleanCreatedDateTimeData
+
+    def clean_lastUpdatedDateTime(self):
+        cleanLastUpdatedDateTimeData = self.cleaned_data["lastUpdatedDateTime"]
+
+        if cleanLastUpdatedDateTimeData == None:
+            raise forms.ValidationError("No date was entered")
+
+        if cleanLastUpdatedDateTimeData > date.today():
+            raise forms.ValidationError("Future date should not be entered")
+
+        return cleanLastUpdatedDateTimeData
+
+
+

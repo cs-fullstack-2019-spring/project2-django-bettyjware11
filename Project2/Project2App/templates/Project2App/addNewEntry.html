@@ -1,13 +1,14 @@
 {% extends 'Project2App/base.html' %}
 
 {% block content %}
+{{ errors }}
 
-<h1>Add WikiPost to the Django Wiki Database</h1>
-<form action="{% url 'addNewEntry' %}" method="POST">
+<form action="{% url 'gotNewEntryInfo' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>Submit</button>
 </form>
+
 
 {% endblock content %}
 
