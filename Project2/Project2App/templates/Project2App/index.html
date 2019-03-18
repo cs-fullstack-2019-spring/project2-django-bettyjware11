@@ -14,7 +14,7 @@
 <div class="gridContainer">
     <ul>
         {% for eachEntry in allEntries %}
-        <li>{{ eachEntry.postTitle }} <a href="{% url 'editEntries' eachEntry.id %}">Edit</a> or <a
+        <li>{{ eachEntry.postTitle }}<a href="{% url 'editEntries' eachEntry.id %}">Edit</a> or <a
                 href="{% url 'deleteEntries' eachEntry.id %}">Delete</a></li>
 
         {% endfor %}

@@ -86,7 +86,7 @@ def editUser(request, username):
 
     return render(request, 'Project2App/createUser.html', {'userform': edit_form})
 
-
+# this function will delete a user
 def deleteuser(request, username):
     user = get_object_or_404(User, pk=username)
     if request.method == 'POST':
@@ -97,6 +97,7 @@ def deleteuser(request, username):
 
 
 # this function allow only logged in users to add new wiki posts
+@login_required()
 def addNewEntry(request):
     # This will create a blank form using CollectorForm
     form = WikiPostsForm()
@@ -150,13 +151,13 @@ def editEntries(request, wikipostsID):
     }
     return render(request, "Project2App/editEntries.html", context)
 
-
+# function to delete wiki posts
 def deleteEntries(request, wikipostsID):
     deleteThisWikiPost = get_object_or_404(WikiPostsModel, pk=wikipostsID)
     deleteThisWikiPost.delete()
     return redirect("index")
 
-
+# function to delete related entries
 def relatedEntries(request):
     related_list = RelatedModel.objects.all()
     context = {
@@ -164,7 +165,7 @@ def relatedEntries(request):
     }
     return render(request, 'Project2App/index.html', context)
 
-
+# function to add a related entry
 def addRelated(request):
     # This will create a blank form using CollectorForm
     form = RelatedForm()
@@ -214,12 +215,12 @@ def editRelated(request, relatedID):
     }
     return render(request, "Project2App/editRelated.html", context)
 
-
+#function to delete a related entry
 def deleteRelated(request, relatedID):
     deleteThisRelated = get_object_or_404(RelatedModel, pk=relatedID)
     deleteThisRelated.delete()
     return redirect("index")
 
-
+#function to search wiki posts
 def searchPosts(request):
     return HttpResponse("search here")
