@@ -16,7 +16,7 @@ def index(request):
     context = {
         "allEntries": allEntries
     }
-    print()
+
     return render(request, 'Project2App/index.html', context)
 
 
@@ -41,7 +41,7 @@ def yourEntries(request):
         # Make all Entries blank because you need this because both the index.html page is expecting a allEntries variable
         allEntries = ""
     context = {"allEntries": allEntries}
-    return render(request, "Project2App/index.html", context)
+    return render(request, "Project2App/yourEntries.html", context)
 
 
 
